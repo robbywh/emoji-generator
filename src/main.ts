@@ -11,6 +11,8 @@ async function bootstrap() {
   // app.useGlobalInterceptors(new BrowserInterceptor());
   // app.useGlobalInterceptors(new TransformResponseInterceptor());
   // app.useGlobalFilters(new AllExceptionsFilter());
-  await app.listen(3000);
+  const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+  const host = `0.0.0.0`;
+  await app.listen(port, host);
 }
 bootstrap();
