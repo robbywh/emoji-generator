@@ -13,6 +13,7 @@ export class TransformResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         console.log(`Interceptor - after handler: manipulate response`);
+        console.log('================================');
         return { data };
       }),
     );

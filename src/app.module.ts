@@ -1,9 +1,14 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/logger/logger.middleware';
 import { LoggerService } from './logger.service';
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AuthGuard } from './common/auth/auth.guard';
 import { BrowserInterceptor } from './common/browser/browser.interceptor';
 import { TransformResponseInterceptor } from './common/transform-response/transform-response.interceptor';
@@ -31,6 +36,12 @@ import { ConfigModule } from '@nestjs/config';
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({
+        whitelist: true,
+      }),
     },
   ],
 })
